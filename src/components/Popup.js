@@ -67,7 +67,7 @@ export default class Popup extends React.Component {
                 width={AVATAR_SIZE}
                 height={AVATAR_SIZE}
               />
-              <span>{title.slice(0, 10)} by {login}</span>
+              <span>{title} by {login}</span>
               <a href={url}>Open</a>
             </li>,
           )}
