@@ -1,4 +1,5 @@
 import createGraphQLClient from 'graphql-client';
+import normalizeISODateString from './common/normalizeISODateString';
 
 const TOKEN_KEY = 'github-private-access-token';
 const USERNAME_KEY = 'github-username';
@@ -67,7 +68,7 @@ export default class User {
     };
   }
 
-  async fetchRequestedReviews({ limit, avatarSize }) {
+  async fetchRequestedReviews({ limit, avatarSize, updatedAt }) {
     const username = getUsername();
     if (!username) {
       throw new Error('Username does not exist');
@@ -78,13 +79,23 @@ export default class User {
       avatarSize,
     };
 
+    const searchQuery = [
+      'is:closed',
+      'is:pr',
+      `review-requested:${username}`,
+      updatedAt && `updated:>=${normalizeISODateString(updatedAt)}`,
+    ]
+      .filter(Boolean)
+      .join(' ');
+
     return this._executeQuery(
       `
       query ($limit: Int!, $avatarSize: Int) {
-        search(query: "is:open is:pr review-requested:${username}", first: $limit, type: ISSUE) {
+        search(query: "${searchQuery}", first: $limit, type: ISSUE) {
           edges {
             node {
               ... on PullRequest {
+                id
                 title
                 url
                 author {
