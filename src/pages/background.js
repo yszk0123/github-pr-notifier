@@ -41,7 +41,7 @@ async function update() {
 
       notifyIfNeeded(data);
 
-      BadgeService.renderCount(data.search.issueCount);
+      BadgeService.renderCount(data.all.issueCount);
     });
   } catch (error) {
     BadgeService.warn('..');

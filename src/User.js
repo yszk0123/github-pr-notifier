@@ -88,6 +88,14 @@ export default class User {
       .filter(Boolean)
       .join(' ');
 
+    const allQuery = [
+      'is:open',
+      'is:pr',
+      `review-requested:${username}`,
+    ]
+      .filter(Boolean)
+      .join(' ');
+
     return this._executeQuery(
       `
       query ($limit: Int!, $avatarSize: Int) {
@@ -105,6 +113,9 @@ export default class User {
               }
             }
           }
+          issueCount
+        }
+        all: search(query: "${allQuery}", first: $limit, type: ISSUE) {
           issueCount
         }
       }`,
