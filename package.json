@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "github-pr-notifier",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "index.js",
   "repository": "https://github.com/yszk0123/github-pr-notifier.git",
   "author": "Yuji Suzuki <y0suzuki0123@gmail.com>",
