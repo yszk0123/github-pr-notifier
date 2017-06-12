@@ -80,7 +80,7 @@ export default class User {
     };
 
     const searchQuery = [
-      'is:closed',
+      'is:open',
       'is:pr',
       `review-requested:${username}`,
       updatedAt && `updated:>=${normalizeISODateString(updatedAt)}`,
